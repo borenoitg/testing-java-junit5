@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Owner Map Service Test - ")
 class OwnerMapServiceTest {
@@ -24,6 +23,8 @@ class OwnerMapServiceTest {
         petTypeService = new PetTypeMapService();
         petService = new PetMapService();
         ownerMapService = new OwnerMapService(petTypeService, petService);
+
+        System.out.println("First Before Each");
     }
 
     @DisplayName("Verify Zero Owners")
@@ -44,6 +45,8 @@ class OwnerMapServiceTest {
             PetType petType2 = new PetType(2L, "Cat");
             petTypeService.save(petType);
             petTypeService.save(petType2);
+
+            System.out.println("Nested Before Each");
         }
 
         @DisplayName("Test Pet Count")
@@ -61,6 +64,7 @@ class OwnerMapServiceTest {
             @BeforeEach
             void setUp() {
                 ownerMapService.save(new Owner(1L, "Before", "Each"));
+                System.out.println("Save Owners  Before Each");
             }
 
             @DisplayName("Save Owner")
