@@ -12,20 +12,21 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 @Tag("controllers")
 class IndexControllerTest {
 
-    private IndexController controller;
+    IndexController controller;
 
     @BeforeEach
     void setUp() {
         controller = new IndexController();
     }
 
-    @Test
     @DisplayName("Test Proper View name is returned for index page")
+    @Test
     void index() {
         assertEquals("index", controller.index());
         assertEquals("index", controller.index(), "Wrong View Returned");
-        assertEquals("index", controller.index(), () -> "Another expensive Message to build Make me only if you " +
-                "have to");
+
+        assertEquals("index", controller.index(), () -> "Another Expensive Message " +
+                "Make me only if you have to");
 
         assertThat(controller.index()).isEqualTo("index");
     }
@@ -33,41 +34,48 @@ class IndexControllerTest {
     @Test
     @DisplayName("Test exception")
     void oupsHandler() {
-        assertThrows(ValueNotFoundException.class, () -> controller.oopsHandler());
+        assertThrows(ValueNotFoundException.class, () -> {
+            controller.oopsHandler();
+        });
     }
 
-    @Disabled("Demo of timeOut")
+    @Disabled("Demo of timeout")
     @Test
     void testTimeOut() {
+
         assertTimeout(Duration.ofMillis(100), () -> {
             Thread.sleep(5000);
+
             System.out.println("I got here");
         });
     }
 
-    @Disabled("Demo of timeOut")
+    @Disabled("Demo of timeout")
     @Test
     void testTimeOutPrempt() {
+
         assertTimeoutPreemptively(Duration.ofMillis(100), () -> {
             Thread.sleep(5000);
-            System.out.println("I got here 2349485855");
+
+            System.out.println("I got here 2342342342342");
         });
     }
 
-    //    @Disabled
     @Test
     void testAssumptionTrue() {
-        assumeTrue("GURU".equalsIgnoreCase((System.getenv("GURU_RUNTIME"))));
+
+        assumeTrue("GURU".equalsIgnoreCase(System.getenv("GURU_RUNTIME")));
     }
 
     @Test
     void testAssumptionTrueAssumptionIsTrue() {
+
         assumeTrue("GURU".equalsIgnoreCase("GURU"));
     }
 
     @EnabledOnOs(OS.MAC)
     @Test
-    void testMeOnMacOs() {
+    void testMeOnMacOS() {
     }
 
     @EnabledOnOs(OS.WINDOWS)
@@ -85,17 +93,12 @@ class IndexControllerTest {
     void testMeOnJava11() {
     }
 
-    @EnabledOnJre(JRE.OTHER)
+    @EnabledIfEnvironmentVariable(named = "USER", matches = "jt")
     @Test
-    void testMeOnJava17() {
+    void testIfUserJT() {
     }
 
-    @EnabledIfEnvironmentVariable(named = "USERNAME", matches = "eanani")
-    @Test
-    void testIfUserEA() {
-    }
-
-    @EnabledIfEnvironmentVariable(named = "USERNAME", matches = "fred")
+    @EnabledIfEnvironmentVariable(named = "USER", matches = "fred")
     @Test
     void testIfUserFred() {
     }

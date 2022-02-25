@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @Tag("model")
 class OwnerTest {
@@ -14,18 +13,18 @@ class OwnerTest {
     @Test
     void dependentAssertions() {
 
-        Owner owner = new Owner(1L, "Joe", "Buck");
+        Owner owner = new Owner(1l, "Joe", "Buck");
         owner.setCity("Key West");
-        owner.setTelephone("12341231234");
+        owner.setTelephone("1231231234");
 
         assertAll("Properties Test",
                 () -> assertAll("Person Properties",
-                        () -> assertEquals("Joe", owner.getFirstName(), "Firs Name didn't match"),
-                        () -> assertEquals("Buck", owner.getLastName(), "Last Name didn't match")),
+                        () -> assertEquals("Joe", owner.getFirstName(), "First Name Did not Match"),
+                        () -> assertEquals("Buck", owner.getLastName())),
                 () -> assertAll("Owner Properties",
-                        () -> assertEquals("Key West", owner.getCity(), "City didn't match"),
-                        () -> assertEquals("12341231234", owner.getTelephone(), "Telephone didn't match"))
-        );
+                        () -> assertEquals("Key West", owner.getCity(), "City Did Not Match"),
+                        () -> assertEquals("1231231234", owner.getTelephone())
+                ));
 
         assertThat(owner.getCity(), is("Key West"));
     }
