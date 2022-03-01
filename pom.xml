@@ -108,7 +108,7 @@
                 <version>2.22.0</version>
                 <configuration>
                     <!--                    <groups>controllers</groups>-->
-                    <excludedGroups>controllers</excludedGroups>
+                    <!--                    <excludedGroups>controllers</excludedGroups>-->
                 </configuration>
             </plugin>
             <plugin>
